@@ -7,9 +7,14 @@ services:
     ports:
       - "514:514/udp"    # odbiór logów UDP na porcie 514
     volumes:
-      - syslog-ng-logs:/var/log/docker_logs  # miejsce na logi
+      - ./syslog-ng-logs:/var/log/docker_logs  # miejsce na logi
       - ./syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:ro  # konfiguracja syslog-ng
     restart: unless-stopped
+    networks:
+      - my_network # Kontener PHP w sieci 'my_network'
 
+networks:
+  my_network: # Definicja sieci, która będzie używana przez oba serwisy
+    external: true # Wskazuje, że sieć 'my_network' już istnieje (np. stworzona ręcznie lub przez inny stack)
 volumes:
   syslog-ng-logs:
