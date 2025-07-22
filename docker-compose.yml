@@ -3,6 +3,7 @@ version: "3.8"
 services:
   syslog-ng:
     image: balabit/syslog-ng:latest
+    container_name: syslog-ng
     ports:
       - "514:514/udp"    # odbiór logów UDP na porcie 514
     volumes:
